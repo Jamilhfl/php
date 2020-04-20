@@ -1,0 +1,99 @@
+<?php
+	$NameError="";
+	$EmailError="";
+	$GenderError="";
+	$WebsiteError="";
+
+	if(isset($_POST["sumbit"])){
+
+		if(empty($_POST['NameG'])){
+	 $NameError="Name is Requried";
+	 }
+	 else{
+	 $Name=Test_User_Input($_POST['NameG']);
+	 if(!preg_match('/^[A-Za-z .]*$/', $Name)){
+	 	$NameError="Enter Valid Name";
+	}
+	  }
+		
+	 	if(empty($_POST['EmailG'])){
+	 $EmailError="Email is Requried";
+	 }
+	 else{
+	 $Email=Test_User_Input($_POST['EmailG']);
+	 if(!preg_match('/[A-Za-z0-9._-]{3,}@[A-Za-z0-9._-]{3,}[.][A-Za-z0-9._-]{2,}/', $Email)){
+	 	$EmailError="Enter Valid Email";	
+	 }
+	 }	
+
+	if(empty($_POST['GenderG'])){
+	$GenderError='Gender is Requried';
+	}
+	else{
+		$Gender=Test_User_Input($_POST['GenderG']);
+	}
+
+	if(empty($_POST['WebsiteG'])){
+		$WebsiteError="Website is Requried";
+	}
+	else{
+		$Website=Test_User_Input($_POST['WebsiteG']);
+	if(!preg_match('/(https:|ftp:)\/\/+[a-zA-Z0-9\-_%\$\/?\#\~!=&+*.]+\.[a-zA-Z0-9\-_%\$\/?\#\~!=&+*.]*/',$Website)){
+			$WebsiteError="Enter Valid Website";	
+	}	
+
+	}
+
+	echo "<h2> Your Submit Information </h2> <br>";
+	echo "Name:  	{$_POST["NameG"]}		<br>";
+	echo "Email:	{$_POST["EmailG"]}		<br>";
+	echo "Gender:	{$_POST["GenderG"]}		<br>";
+	echo "Website:	{$_POST["WebsiteG"]}	<br>";
+	echo "Comments:	{$_POST["comments"]}	<br>";
+
+
+	}
+		function Test_User_Input($Data){
+			return($Data);	
+		}
+
+	?>
+
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Form Validation</title>
+	</head>
+	<body>
+
+	<br>
+	<form action="19-ValidationFormProject.php" method="post">
+		<fieldset>
+			
+			<legend>Personal Information Requried</legend>
+			
+			Name: <br>
+			<input class="input" type="text" name="NameG" value="">* <?php echo $NameError?> <br>
+
+			E-mail:<br>
+			<input class="input" type="text" name="EmailG" value="">* <?php echo $EmailError?> <br><br>
+
+			Gender:<br>
+			<input class="radio" type="radio" name="GenderG" value="Male">Male:
+			<input class="radio" type="radio" name="GenderG" value="Female">Female: *<?php echo $GenderError?><br><br>
+
+
+			Website:<br>
+			<input class="input" type="text" name="WebsiteG" value="">* <?php echo $WebsiteError?> <br><br>
+
+			Comments:<br>
+			<textarea name="comments" rows="5" cols="25"></textarea><br>
+
+			<input type="submit" name="sumbit" value="Submit You Information">
+
+
+		</fieldset>
+	</form>
+
+	</body>
+	</html>
